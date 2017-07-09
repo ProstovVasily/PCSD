@@ -9,6 +9,8 @@ QT  += gui
 QT += opengl
 QT += network
 
+LIBS += -lOpenGL32
+LIBS +=  -lGLU32 -lglut
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

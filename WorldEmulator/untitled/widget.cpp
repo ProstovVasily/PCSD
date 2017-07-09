@@ -4,14 +4,19 @@
 #include <math.h>
 
 #include <stdio.h>
+#include <iostream>
 #include <string>
 
 
 
 Scene3D::Scene3D(QWidget* parent) : QGLWidget(parent)
 {
-
+    std::cout<<"start " <<std::endl;
     commands = fopen("errors.txt", "w");
+    if (commands == NULL)
+    {
+        std::cout<<"fail to create error file " <<std::endl;
+    }
     aTimer = new QTimer();
     timer.start(30, this);
     MOVE_SPEED = 0.1;
@@ -26,23 +31,29 @@ Scene3D::Scene3D(QWidget* parent) : QGLWidget(parent)
     normal[0] = 0;
     normal[1] = 0;
     normal[2] = 1;
+    std::cout<<"point 1 " <<std::endl;
     FILE* f = fopen("starting_settings.txt", "r");
+    std::cout<<"point 2 " <<std::endl;
     n = 10;
     n_d = 1;
     int id;//fuck it for now
     float x, y, z;
     if (f != NULL)
     {
+    std::cout<<"point 3 " <<std::endl;
     fscanf(f, "%d %d\n", &n, &n_d);
+    std::cout<<"point 3 " <<n <<' ' << n_d<<std::endl;
     cubes = new Cube [n];
     drones = new Drone [n_d];
     for (int i = 0; i < n; i++)
     {
+        std::cout<<"reading " << i<<std::endl;
         fscanf(f, "%d %f %f %f", &id, &x, &y, &z);
         cubes[i].move_to(x, y, z);
     }
     for (int i = 0; i < n_d; i++)
     {
+        std::cout<<"reading " << i<<std::endl;
         fscanf(f, "%d %f %f %f", &id, &x, &y, &z);
         drones[i].move_to(x, y, z);
     }
@@ -50,6 +61,7 @@ Scene3D::Scene3D(QWidget* parent) : QGLWidget(parent)
     }
     else
     {
+        std::cout<<"fail write " <<std::endl;
         fprintf(commands, "fail, file not found");
         cubes = new Cube[10];
     }
