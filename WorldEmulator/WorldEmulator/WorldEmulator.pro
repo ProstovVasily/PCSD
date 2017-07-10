@@ -14,7 +14,7 @@ LIBS +=  -lGLU32 -lglut
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Untitled
+TARGET = WorldEmulator
 TEMPLATE = app
 
 
